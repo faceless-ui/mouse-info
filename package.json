@@ -1,6 +1,6 @@
 {
   "name": "@trbl/react-mouse-position",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/build.bundle.js",
   "repository": "git@github.com:trouble/react-mouse-position.git",
   "description": "Here, mousey, mousey, mousey!",
