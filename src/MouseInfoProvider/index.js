@@ -11,8 +11,14 @@ class MouseInfoProvider extends Component {
       mouseInfo: {
         x: 0,
         y: 0,
-        isInViewport: false,
+        xDifference: 0,
+        yDifference: 0,
+        xDirection: '',
+        yDirection: '',
+        xPercentage: 0,
+        yPercentage: 0,
       },
+      isInViewport: false,
       count: 0,
     };
   }
@@ -30,25 +36,34 @@ class MouseInfoProvider extends Component {
   }
 
   setViewportStatus = (status) => {
-    const { mouseInfo } = this.state;
-
-    this.setState({
-      mouseInfo: {
-        ...mouseInfo,
-        isInViewport: status,
-      },
-    });
+    this.setState({ isInViewport: status });
   }
 
   updateMouseInfo = (e) => {
-    const { mouseInfo } = this.state;
+    const {
+      mouseInfo: {
+        x: lastMouseX,
+        y: lastMouseY,
+      },
+    } = this.state;
+
+    const currentMouseX = e.clientX;
+    const currentMouseY = e.clientY;
+
+    const xDifference = currentMouseX - lastMouseX;
+    const yDifference = currentMouseY - lastMouseY;
 
     this.setState({
       animationScheduled: false,
       mouseInfo: {
-        ...mouseInfo,
-        x: e.clientX,
-        y: e.clientY,
+        x: currentMouseX,
+        y: currentMouseY,
+        xDifference,
+        yDifference,
+        xDirection: xDifference > 0 ? 'right' : 'left',
+        yDirection: yDifference > 0 ? 'down' : 'up',
+        xPercentage: Number(((currentMouseX / window.innerWidth) * 100).toFixed(3)),
+        yPercentage: Number(((currentMouseY / window.innerHeight) * 100).toFixed(3)),
       },
     });
   };
@@ -64,12 +79,13 @@ class MouseInfoProvider extends Component {
 
   render() {
     const { children } = this.props;
-    const { mouseInfo, count } = this.state;
+    const { mouseInfo, count, isInViewport } = this.state;
 
     return (
       <MouseInfoContext.Provider value={{
         mouseInfo: {
           ...mouseInfo,
+          isInViewport,
           count,
         },
       }}
