@@ -1,8 +1,8 @@
 {
-  "name": "@trbl/react-mouse-position",
-  "version": "0.0.2",
+  "name": "@trbl/react-mouse-info",
+  "version": "0.0.3",
   "main": "dist/build.bundle.js",
-  "repository": "git@github.com:trouble/react-mouse-position.git",
+  "repository": "git@github.com:trouble/react-mouse-info.git",
   "description": "Here, mousey, mousey, mousey!",
   "author": "<info@trbl.design>",
   "license": "MIT",

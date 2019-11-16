@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import MousePositionContext from './context';
+import MouseInfoContext from './context';
 
-class MousePositionProvider extends Component {
+class MouseInfoProvider extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       animationScheduled: false,
-      mousePos: {
+      mouseInfo: {
         x: 0,
         y: 0,
         isInViewport: false,
       },
+      count: 0,
     };
   }
 
@@ -29,23 +30,23 @@ class MousePositionProvider extends Component {
   }
 
   setViewportStatus = (status) => {
-    const { mousePos } = this.state;
+    const { mouseInfo } = this.state;
 
     this.setState({
-      mousePos: {
-        ...mousePos,
+      mouseInfo: {
+        ...mouseInfo,
         isInViewport: status,
       },
     });
   }
 
-  updateMousePos = (e) => {
-    const { mousePos } = this.state;
+  updateMouseInfo = (e) => {
+    const { mouseInfo } = this.state;
 
     this.setState({
       animationScheduled: false,
-      mousePos: {
-        ...mousePos,
+      mouseInfo: {
+        ...mouseInfo,
         x: e.clientX,
         y: e.clientY,
       },
@@ -53,32 +54,36 @@ class MousePositionProvider extends Component {
   };
 
   requestAnimation = (e) => {
-    const { animationScheduled } = this.state;
+    const { animationScheduled, count } = this.state;
 
     if (!animationScheduled) {
-      requestAnimationFrame(() => this.updateMousePos(e));
-      this.setState({ animationScheduled: true });
+      requestAnimationFrame(() => this.updateMouseInfo(e));
+      this.setState({ animationScheduled: true, count: count + 1 });
     }
   }
 
   render() {
     const { children } = this.props;
-    const { mousePos } = this.state;
-
-    const something = '';
+    const { mouseInfo, count } = this.state;
 
     return (
-      <MousePositionContext.Provider value={{ mousePos }}>
+      <MouseInfoContext.Provider value={{
+        mouseInfo: {
+          ...mouseInfo,
+          count,
+        },
+      }}
+      >
         {children}
-      </MousePositionContext.Provider>
+      </MouseInfoContext.Provider>
     );
   }
 }
 
-MousePositionProvider.defaultProps = {};
+MouseInfoProvider.defaultProps = {};
 
-MousePositionProvider.propTypes = {
+MouseInfoProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default MousePositionProvider;
+export default MouseInfoProvider;

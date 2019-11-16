@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withMousePosition } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
+import { withMouseInfo } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
 
-const MousePositionDemo = (props) => {
+const MouseInfoDemo = (props) => {
   const {
-    mousePos: {
+    mouseInfo: {
       x,
       y,
       isInViewport,
+      count,
     },
   } = props;
 
@@ -19,19 +20,22 @@ const MousePositionDemo = (props) => {
         {`mouse y position: ${y}`}
         <br />
         {`mouse is in viewport: ${isInViewport}`}
+        <br />
+        {`count: ${count}`}
       </pre>
     </code>
   );
 };
 
-MousePositionDemo.defaultProps = {};
+MouseInfoDemo.defaultProps = {};
 
-MousePositionDemo.propTypes = {
-  mousePos: PropTypes.shape({
+MouseInfoDemo.propTypes = {
+  mouseInfo: PropTypes.shape({
     x: PropTypes.number,
     y: PropTypes.number,
     isInViewport: PropTypes.bool,
+    count: PropTypes.number,
   }).isRequired,
 };
 
-export default withMousePosition(MousePositionDemo);
+export default withMouseInfo(MouseInfoDemo);

@@ -1,3 +1,3 @@
-export { default as MousePositionContext } from './MousePositionProvider/context';
-export { default as MousePositionProvider } from './MousePositionProvider';
-export { default as withMousePosition } from './withMousePosition';
+export { default as MouseInfoContext } from './MouseInfoProvider/context';
+export { default as MouseInfoProvider } from './MouseInfoProvider';
+export { default as withMouseInfo } from './withMouseInfo';
