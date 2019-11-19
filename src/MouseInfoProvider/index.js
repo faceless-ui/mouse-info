@@ -16,6 +16,7 @@ class MouseInfoProvider extends Component {
       yDirection: '',
       xPercentage: 0,
       yPercentage: 0,
+      totalPercentage: 0,
       isInViewport: false,
       count: 0,
     };
@@ -45,9 +46,10 @@ class MouseInfoProvider extends Component {
 
     const currentMouseX = e.clientX;
     const currentMouseY = e.clientY;
-
     const xDifference = currentMouseX - lastMouseX;
     const yDifference = currentMouseY - lastMouseY;
+    const xPercentage = Number((currentMouseX / window.innerWidth).toFixed(3));
+    const yPercentage = Number((currentMouseY / window.innerHeight).toFixed(3));
 
     this.setState({
       animationScheduled: false,
@@ -57,8 +59,9 @@ class MouseInfoProvider extends Component {
       yDifference,
       xDirection: xDifference > 0 ? 'right' : 'left',
       yDirection: yDifference > 0 ? 'down' : 'up',
-      xPercentage: Number(((currentMouseX / window.innerWidth) * 100).toFixed(3)),
-      yPercentage: Number(((currentMouseY / window.innerHeight) * 100).toFixed(3)),
+      xPercentage,
+      yPercentage,
+      totalPercentage: (xPercentage + yPercentage) / 2,
     });
   };
 
@@ -82,6 +85,7 @@ class MouseInfoProvider extends Component {
       yDirection,
       xPercentage,
       yPercentage,
+      totalPercentage,
       isInViewport,
       count,
     } = this.state;
@@ -97,6 +101,7 @@ class MouseInfoProvider extends Component {
           yDirection,
           xPercentage,
           yPercentage,
+          totalPercentage,
           isInViewport,
           count,
         },
