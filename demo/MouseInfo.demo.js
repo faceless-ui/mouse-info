@@ -13,6 +13,7 @@ const MouseInfoDemo = (props) => {
       yDirection,
       xPercentage,
       yPercentage,
+      totalPercentage,
       isInViewport,
       count,
     },
@@ -48,6 +49,9 @@ const MouseInfoDemo = (props) => {
         {`yPercentage: ${yPercentage}`}
         <br />
         &emsp;
+        {`totalPercentage: ${totalPercentage}`}
+        <br />
+        &emsp;
         {`mouse is in viewport: ${isInViewport}`}
         <br />
         &emsp;
@@ -65,8 +69,8 @@ MouseInfoDemo.propTypes = {
   mouseInfo: PropTypes.shape({
     x: PropTypes.number,
     y: PropTypes.number,
-    xPercentage: PropTypes.number,
-    yPercentage: PropTypes.number,
+    xDifference: PropTypes.number,
+    yDifference: PropTypes.number,
     xDirection: PropTypes.oneOf([
       '',
       'left',
@@ -77,8 +81,9 @@ MouseInfoDemo.propTypes = {
       'up',
       'down',
     ]),
-    xDifference: PropTypes.number,
-    yDifference: PropTypes.number,
+    xPercentage: PropTypes.number,
+    yPercentage: PropTypes.number,
+    totalPercentage: PropTypes.number,
     isInViewport: PropTypes.bool,
     count: PropTypes.number,
   }).isRequired,
