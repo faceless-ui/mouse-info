@@ -8,16 +8,14 @@ class MouseInfoProvider extends Component {
 
     this.state = {
       animationScheduled: false,
-      mouseInfo: {
-        x: 0,
-        y: 0,
-        xDifference: 0,
-        yDifference: 0,
-        xDirection: '',
-        yDirection: '',
-        xPercentage: 0,
-        yPercentage: 0,
-      },
+      x: 0,
+      y: 0,
+      xDifference: 0,
+      yDifference: 0,
+      xDirection: '',
+      yDirection: '',
+      xPercentage: 0,
+      yPercentage: 0,
       isInViewport: false,
       count: 0,
     };
@@ -41,10 +39,8 @@ class MouseInfoProvider extends Component {
 
   updateMouseInfo = (e) => {
     const {
-      mouseInfo: {
-        x: lastMouseX,
-        y: lastMouseY,
-      },
+      x: lastMouseX,
+      y: lastMouseY,
     } = this.state;
 
     const currentMouseX = e.clientX;
@@ -55,16 +51,14 @@ class MouseInfoProvider extends Component {
 
     this.setState({
       animationScheduled: false,
-      mouseInfo: {
-        x: currentMouseX,
-        y: currentMouseY,
-        xDifference,
-        yDifference,
-        xDirection: xDifference > 0 ? 'right' : 'left',
-        yDirection: yDifference > 0 ? 'down' : 'up',
-        xPercentage: Number(((currentMouseX / window.innerWidth) * 100).toFixed(3)),
-        yPercentage: Number(((currentMouseY / window.innerHeight) * 100).toFixed(3)),
-      },
+      x: currentMouseX,
+      y: currentMouseY,
+      xDifference,
+      yDifference,
+      xDirection: xDifference > 0 ? 'right' : 'left',
+      yDirection: yDifference > 0 ? 'down' : 'up',
+      xPercentage: Number(((currentMouseX / window.innerWidth) * 100).toFixed(3)),
+      yPercentage: Number(((currentMouseY / window.innerHeight) * 100).toFixed(3)),
     });
   };
 
@@ -79,12 +73,30 @@ class MouseInfoProvider extends Component {
 
   render() {
     const { children } = this.props;
-    const { mouseInfo, count, isInViewport } = this.state;
+    const {
+      x,
+      y,
+      xDifference,
+      yDifference,
+      xDirection,
+      yDirection,
+      xPercentage,
+      yPercentage,
+      isInViewport,
+      count,
+    } = this.state;
 
     return (
       <MouseInfoContext.Provider value={{
         mouseInfo: {
-          ...mouseInfo,
+          x,
+          y,
+          xDifference,
+          yDifference,
+          xDirection,
+          yDirection,
+          xPercentage,
+          yPercentage,
           isInViewport,
           count,
         },
