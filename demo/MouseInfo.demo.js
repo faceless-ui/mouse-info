@@ -15,7 +15,7 @@ const MouseInfoDemo = (props) => {
       yPercentage,
       totalPercentage,
       isInViewport,
-      count,
+      eventsFired,
     },
   } = props;
 
@@ -25,10 +25,10 @@ const MouseInfoDemo = (props) => {
         {'scrollPos:{'}
         <br />
         &emsp;
-        {`x: ${x}`}
+        {`x: ${x},`}
         <br />
         &emsp;
-        {`y: ${y}`}
+        {`y: ${y},`}
         <br />
         &emsp;
         {`xDifference: ${xDifference},`}
@@ -46,16 +46,16 @@ const MouseInfoDemo = (props) => {
         {`xPercentage: ${xPercentage},`}
         <br />
         &emsp;
-        {`yPercentage: ${yPercentage}`}
+        {`yPercentage: ${yPercentage},`}
         <br />
         &emsp;
-        {`totalPercentage: ${totalPercentage}`}
+        {`totalPercentage: ${totalPercentage},`}
         <br />
         &emsp;
-        {`mouse is in viewport: ${isInViewport}`}
+        {`isInViewport: ${isInViewport},`}
         <br />
         &emsp;
-        {`count: ${count}`}
+        {`eventsFired: ${eventsFired}`}
         <br />
         {'}'}
       </pre>
@@ -85,7 +85,7 @@ MouseInfoDemo.propTypes = {
     yPercentage: PropTypes.number,
     totalPercentage: PropTypes.number,
     isInViewport: PropTypes.bool,
-    count: PropTypes.number,
+    eventsFired: PropTypes.number,
   }).isRequired,
 };
 
