@@ -18,7 +18,7 @@ class MouseInfoProvider extends Component {
       yPercentage: 0,
       totalPercentage: 0,
       isInViewport: false,
-      count: 0,
+      eventsFired: 0,
     };
   }
 
@@ -67,11 +67,11 @@ class MouseInfoProvider extends Component {
   };
 
   requestAnimation = (e) => {
-    const { animationScheduled, count } = this.state;
+    const { animationScheduled, eventsFired } = this.state;
 
     if (!animationScheduled) {
       requestAnimationFrame(() => this.updateMouseInfo(e));
-      this.setState({ animationScheduled: true, count: count + 1 });
+      this.setState({ animationScheduled: true, eventsFired: eventsFired + 1 });
     }
   }
 
@@ -88,7 +88,7 @@ class MouseInfoProvider extends Component {
       yPercentage,
       totalPercentage,
       isInViewport,
-      count,
+      eventsFired,
     } = this.state;
 
     return (
@@ -104,7 +104,7 @@ class MouseInfoProvider extends Component {
           yPercentage,
           totalPercentage,
           isInViewport,
-          count,
+          eventsFired,
         },
       }}
       >
