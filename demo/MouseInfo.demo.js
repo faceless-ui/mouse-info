@@ -22,7 +22,7 @@ const MouseInfoDemo = (props) => {
   return (
     <code>
       <pre>
-        {'scrollPos:{'}
+        {'mouseInfo: {'}
         <br />
         &emsp;
         {`x: ${x}`}
