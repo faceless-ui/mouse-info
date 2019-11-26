@@ -1,6 +1,6 @@
 {
   "name": "@trbl/react-mouse-info",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "dist/build.bundle.js",
   "repository": "git@github.com:trouble/react-mouse-info.git",
   "description": "Here, mousey, mousey, mousey!",
