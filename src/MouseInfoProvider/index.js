@@ -40,17 +40,24 @@ class MouseInfoProvider extends Component {
 
   updateMouseInfo = (e) => {
     const {
-      x: lastMouseX,
-      y: lastMouseY,
+      x: prevMouseX,
+      y: prevMouseY,
+      xDirection: prevXDirection,
+      yDirection: prevYDirection,
     } = this.state;
 
     const currentMouseX = e.clientX;
     const currentMouseY = e.clientY;
-    const xDifference = currentMouseX - lastMouseX;
-    const yDifference = currentMouseY - lastMouseY;
+
+    const xDifference = currentMouseX - prevMouseX;
+    const yDifference = currentMouseY - prevMouseY;
+
     const xPercentage = Number((currentMouseX / window.innerWidth).toFixed(3));
     const yPercentage = Number((currentMouseY / window.innerHeight).toFixed(3));
     const totalPercentage = Number(((xPercentage + yPercentage) / 2).toFixed(3));
+
+    const xDirection = xDifference > 0 ? 'right' : xDifference < 0 ? 'left' : prevXDirection;
+    const yDirection = yDifference > 0 ? 'down' : yDifference < 0 ? 'up' : prevYDirection;
 
     this.setState({
       animationScheduled: false,
@@ -58,8 +65,8 @@ class MouseInfoProvider extends Component {
       y: currentMouseY,
       xDifference,
       yDifference,
-      xDirection: xDifference > 0 ? 'right' : 'left',
-      yDirection: yDifference > 0 ? 'down' : 'up',
+      xDirection,
+      yDirection,
       xPercentage,
       yPercentage,
       totalPercentage,
