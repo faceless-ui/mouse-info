@@ -1,125 +1,82 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import MouseInfoContext from './context';
 
-class MouseInfoProvider extends Component {
-  constructor(props) {
-    super(props);
+const MouseInfoProvider = (props) => {
+  const { children } = props;
 
-    this.state = {
-      animationScheduled: false,
-      x: 0,
-      y: 0,
-      xDifference: 0,
-      yDifference: 0,
-      xDirection: '',
-      yDirection: '',
-      xPercentage: 0,
-      yPercentage: 0,
-      totalPercentage: 0,
-      isInViewport: false,
-      eventsFired: 0,
-    };
-  }
+  const [isAnimationScheduled, setIsAnimationScheduled] = useState(false);
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+  const [xDifference, setXDifference] = useState(0);
+  const [yDifference, setYDifference] = useState(0);
+  const [xDirection, setXDirection] = useState('');
+  const [yDirection, setYDirection] = useState('');
+  const [xPercentage, setXPercentage] = useState(false);
+  const [yPercentage, setYPercentage] = useState(0);
+  const [totalPercentage, setTotalPercentage] = useState(0);
+  const [isInViewport, setIsInViewport] = useState(false);
+  const [numEventsFired, setNumEventsFired] = useState(0);
 
-  componentDidMount() {
-    document.addEventListener('mousemove', this.requestAnimation);
-    document.addEventListener('mouseenter', () => this.setViewportStatus(true));
-    document.addEventListener('mouseleave', () => this.setViewportStatus(false));
-  }
+  useEffect(() => {
+    function updateMouseInfo(e) {
+      setIsAnimationScheduled(false);
 
-  componentWillUnmount() {
-    document.removeEventListener('mousemove', this.requestAnimation);
-    document.removeEventListener('mouseenter', this.setViewportStatus);
-    document.removeEventListener('mouseleave', this.setViewportStatus);
-  }
-
-  setViewportStatus = (status) => {
-    this.setState({ isInViewport: status });
-  }
-
-  updateMouseInfo = (e) => {
-    const {
-      x: prevMouseX,
-      y: prevMouseY,
-      xDirection: prevXDirection,
-      yDirection: prevYDirection,
-    } = this.state;
-
-    const currentMouseX = e.clientX;
-    const currentMouseY = e.clientY;
-
-    const xDifference = currentMouseX - prevMouseX;
-    const yDifference = currentMouseY - prevMouseY;
-
-    const xPercentage = Number((currentMouseX / window.innerWidth).toFixed(3));
-    const yPercentage = Number((currentMouseY / window.innerHeight).toFixed(3));
-    const totalPercentage = Number(((xPercentage + yPercentage) / 2).toFixed(3));
-
-    const xDirection = xDifference > 0 ? 'right' : xDifference < 0 ? 'left' : prevXDirection;
-    const yDirection = yDifference > 0 ? 'down' : yDifference < 0 ? 'up' : prevYDirection;
-
-    this.setState({
-      animationScheduled: false,
-      x: currentMouseX,
-      y: currentMouseY,
-      xDifference,
-      yDifference,
-      xDirection,
-      yDirection,
-      xPercentage,
-      yPercentage,
-      totalPercentage,
-    });
-  };
-
-  requestAnimation = (e) => {
-    const { animationScheduled, eventsFired } = this.state;
-
-    if (!animationScheduled) {
-      requestAnimationFrame(() => this.updateMouseInfo(e));
-      this.setState({ animationScheduled: true, eventsFired: eventsFired + 1 });
+      setX(e.clientX);
+      setY(e.clientY);
+      setXDifference(e.clientX - x);
+      setYDifference(e.clientY - y);
+      setXPercentage(Number((x / window.innerWidth).toFixed(3)));
+      setYPercentage(Number((y / window.innerHeight).toFixed(3)));
+      setTotalPercentage(Number(((xPercentage + yPercentage) / 2).toFixed(3)));
+      setXDirection(xDifference > 0 ? 'right' : xDifference < 0 ? 'left' : xDirection);
+      setYDirection(yDifference > 0 ? 'down' : yDifference < 0 ? 'up' : yDirection);
     }
-  }
 
-  render() {
-    const { children } = this.props;
-    const {
-      x,
-      y,
-      xDifference,
-      yDifference,
-      xDirection,
-      yDirection,
-      xPercentage,
-      yPercentage,
-      totalPercentage,
-      isInViewport,
-      eventsFired,
-    } = this.state;
+    function requestAnimation(e) {
+      if (!isAnimationScheduled) {
+        requestAnimationFrame(() => updateMouseInfo(e));
+        setIsAnimationScheduled(true);
+        setNumEventsFired(numEventsFired + 1);
+      }
+    }
 
-    return (
-      <MouseInfoContext.Provider value={{
-        mouseInfo: {
-          x,
-          y,
-          xDifference,
-          yDifference,
-          xDirection,
-          yDirection,
-          xPercentage,
-          yPercentage,
-          totalPercentage,
-          isInViewport,
-          eventsFired,
-        },
-      }}
-      >
-        {children}
-      </MouseInfoContext.Provider>
-    );
-  }
-}
+    function setViewportStatus(status) {
+      setIsInViewport(status);
+    }
+
+    document.addEventListener('mousemove', requestAnimation);
+    document.addEventListener('mouseenter', () => setViewportStatus(true));
+    document.addEventListener('mouseleave', () => setViewportStatus(false));
+
+    return function cleanup() {
+      document.removeEventListener('mousemove', requestAnimation);
+      document.removeEventListener('mouseenter', setViewportStatus);
+      document.removeEventListener('mouseleave', setViewportStatus);
+    };
+  }, [isAnimationScheduled, numEventsFired, x, xDifference, xDirection, xPercentage, y, yDifference, yDirection, yPercentage]);
+
+  return (
+    <MouseInfoContext.Provider value={{
+      mouseInfo: {
+        x,
+        y,
+        xDifference,
+        yDifference,
+        xDirection,
+        yDirection,
+        xPercentage,
+        yPercentage,
+        totalPercentage,
+        isInViewport,
+        eventsFired: numEventsFired,
+      },
+    }}
+    >
+      {children}
+    </MouseInfoContext.Provider>
+  );
+};
 
 MouseInfoProvider.defaultProps = {};
 

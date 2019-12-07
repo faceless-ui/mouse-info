@@ -20,6 +20,7 @@ module.exports = {
   },
   plugins: [
     'react',
+    'react-hooks',
   ],
   rules: {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
@@ -38,7 +39,9 @@ module.exports = {
     "import/prefer-default-export": 0,
     "no-throw-literal": 0,
     "react/jsx-max-props-per-line": [1, { "maximum": 1 }],
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "no-nested-ternary": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   },
 };
