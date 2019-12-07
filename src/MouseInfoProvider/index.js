@@ -12,7 +12,7 @@ const MouseInfoProvider = (props) => {
   const [yDifference, setYDifference] = useState(0);
   const [xDirection, setXDirection] = useState('');
   const [yDirection, setYDirection] = useState('');
-  const [xPercentage, setXPercentage] = useState(false);
+  const [xPercentage, setXPercentage] = useState(0);
   const [yPercentage, setYPercentage] = useState(0);
   const [totalPercentage, setTotalPercentage] = useState(0);
   const [isInViewport, setIsInViewport] = useState(false);
