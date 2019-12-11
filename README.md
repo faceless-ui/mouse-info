@@ -4,7 +4,7 @@
 
 # React Mouse Info
 
-Here, mousey, mousey, mousey!
+Grayish brown.
 
 ## Quick Start
 

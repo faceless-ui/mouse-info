@@ -22,7 +22,7 @@ const MouseInfoDemo = (props) => {
   return (
     <code>
       <pre>
-        {'scrollPos:{'}
+        {'mouseInfo: {'}
         <br />
         &emsp;
         {`x: ${x},`}
@@ -55,7 +55,7 @@ const MouseInfoDemo = (props) => {
         {`isInViewport: ${isInViewport},`}
         <br />
         &emsp;
-        {`eventsFired: ${eventsFired}`}
+        {`eventsFired: ${eventsFired},`}
         <br />
         {'}'}
       </pre>

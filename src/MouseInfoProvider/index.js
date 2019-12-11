@@ -7,7 +7,6 @@ class MouseInfoProvider extends Component {
     super(props);
 
     this.state = {
-      animationScheduled: false,
       x: 0,
       y: 0,
       xDifference: 0,
@@ -19,6 +18,7 @@ class MouseInfoProvider extends Component {
       totalPercentage: 0,
       isInViewport: false,
       eventsFired: 0,
+      animationScheduled: false,
     };
   }
 
@@ -34,16 +34,27 @@ class MouseInfoProvider extends Component {
     document.removeEventListener('mouseleave', this.setViewportStatus);
   }
 
+  requestAnimation = (e) => {
+    const { animationScheduled } = this.state;
+
+    if (!animationScheduled) {
+      this.setState({
+        animationScheduled: true,
+      }, () => requestAnimationFrame(timestamp => this.updateMouseInfo(e, timestamp)));
+    }
+  }
+
   setViewportStatus = (status) => {
     this.setState({ isInViewport: status });
   }
 
-  updateMouseInfo = (e) => {
+  updateMouseInfo = (e, timestamp) => {
     const {
       x: prevMouseX,
       y: prevMouseY,
       xDirection: prevXDirection,
       yDirection: prevYDirection,
+      eventsFired,
     } = this.state;
 
     const currentMouseX = e.clientX;
@@ -52,15 +63,14 @@ class MouseInfoProvider extends Component {
     const xDifference = currentMouseX - prevMouseX;
     const yDifference = currentMouseY - prevMouseY;
 
-    const xPercentage = Number((currentMouseX / window.innerWidth).toFixed(3));
-    const yPercentage = Number((currentMouseY / window.innerHeight).toFixed(3));
-    const totalPercentage = Number(((xPercentage + yPercentage) / 2).toFixed(3));
+    const xPercentage = (currentMouseX / window.innerWidth) * 100;
+    const yPercentage = (currentMouseY / window.innerHeight) * 100;
+    const totalPercentage = (xPercentage + yPercentage) / 2;
 
     const xDirection = xDifference > 0 ? 'right' : xDifference < 0 ? 'left' : prevXDirection;
     const yDirection = yDifference > 0 ? 'down' : yDifference < 0 ? 'up' : prevYDirection;
 
     this.setState({
-      animationScheduled: false,
       x: currentMouseX,
       y: currentMouseY,
       xDifference,
@@ -70,51 +80,18 @@ class MouseInfoProvider extends Component {
       xPercentage,
       yPercentage,
       totalPercentage,
+      eventsFired: timestamp ? eventsFired + 1 : eventsFired,
+      animationScheduled: false,
     });
   };
 
-  requestAnimation = (e) => {
-    const { animationScheduled, eventsFired } = this.state;
-
-    if (!animationScheduled) {
-      requestAnimationFrame(() => this.updateMouseInfo(e));
-      this.setState({ animationScheduled: true, eventsFired: eventsFired + 1 });
-    }
-  }
-
   render() {
     const { children } = this.props;
-    const {
-      x,
-      y,
-      xDifference,
-      yDifference,
-      xDirection,
-      yDirection,
-      xPercentage,
-      yPercentage,
-      totalPercentage,
-      isInViewport,
-      eventsFired,
-    } = this.state;
+    const mouseInfo = { ...this.state };
+    delete mouseInfo.animationScheduled;
 
     return (
-      <MouseInfoContext.Provider value={{
-        mouseInfo: {
-          x,
-          y,
-          xDifference,
-          yDifference,
-          xDirection,
-          yDirection,
-          xPercentage,
-          yPercentage,
-          totalPercentage,
-          isInViewport,
-          eventsFired,
-        },
-      }}
-      >
+      <MouseInfoContext.Provider value={{ mouseInfo }}>
         {children}
       </MouseInfoContext.Provider>
     );
