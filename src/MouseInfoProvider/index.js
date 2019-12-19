@@ -5,72 +5,84 @@ import MouseInfoContext from './context';
 const MouseInfoProvider = (props) => {
   const { children } = props;
 
-  const [isAnimationScheduled, setIsAnimationScheduled] = useState(false);
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
-  const [xDifference, setXDifference] = useState(0);
-  const [yDifference, setYDifference] = useState(0);
-  const [xDirection, setXDirection] = useState('');
-  const [yDirection, setYDirection] = useState('');
-  const [xPercentage, setXPercentage] = useState(0);
-  const [yPercentage, setYPercentage] = useState(0);
-  const [totalPercentage, setTotalPercentage] = useState(0);
+  const [isTrackingDisabled, setDisabledTracking] = useState(false);
   const [isInViewport, setIsInViewport] = useState(false);
   const [numEventsFired, setNumEventsFired] = useState(0);
+  const [isAnimationScheduled, setIsAnimationScheduled] = useState(false);
+  const [mouseInformation, setMouseInformation] = useState({
+    x: 0,
+    y: 0,
+    xDifference: 0,
+    yDifference: 0,
+    xDirection: '',
+    yDirection: '',
+    xPercentage: 0,
+    yPercentage: 0,
+    totalPercentage: 0,
+  });
+
+  function disableTracking(trackingStatus) {
+    setDisabledTracking(trackingStatus);
+  }
 
   useEffect(() => {
-    function updateMouseInfo(e) {
+    function updateMouseInfo(e, timestamp) {
       setIsAnimationScheduled(false);
-
-      setX(e.clientX);
-      setY(e.clientY);
-      setXDifference(e.clientX - x);
-      setYDifference(e.clientY - y);
-      setXPercentage(Number((x / window.innerWidth).toFixed(3)));
-      setYPercentage(Number((y / window.innerHeight).toFixed(3)));
-      setTotalPercentage(Number(((xPercentage + yPercentage) / 2).toFixed(3)));
-      setXDirection(xDifference > 0 ? 'right' : xDifference < 0 ? 'left' : xDirection);
-      setYDirection(yDifference > 0 ? 'down' : yDifference < 0 ? 'up' : yDirection);
+      setNumEventsFired(prevEventsFired => (timestamp ? prevEventsFired + 1 : prevEventsFired));
+      setMouseInformation(prev => ({
+        x: e.clientX,
+        y: e.clientY,
+        xDifference: e.clientX - prev.x,
+        yDifference: e.clientY - prev.y,
+        xPercentage: Number((prev.x / window.innerWidth).toFixed(3)),
+        yPercentage: Number((prev.y / window.innerHeight).toFixed(3)),
+        totalPercentage: Number(((prev.xPercentage + prev.yPercentage) / 2).toFixed(3)),
+        xDirection: prev.xDifference > 0 ? 'right' : prev.xDifference < 0 ? 'left' : prev.xDirection,
+        yDirection: prev.yDifference > 0 ? 'down' : prev.yDifference < 0 ? 'up' : prev.yDirection,
+      }));
     }
 
     function requestAnimation(e) {
-      if (!isAnimationScheduled) {
-        requestAnimationFrame(() => updateMouseInfo(e));
+      if (!isAnimationScheduled && !isTrackingDisabled) {
+        requestAnimationFrame(timestamp => updateMouseInfo(e, timestamp));
         setIsAnimationScheduled(true);
-        setNumEventsFired(numEventsFired + 1);
       }
     }
 
-    function setViewportStatus(status) {
-      setIsInViewport(status);
+    function setOutsideViewport() {
+      setIsInViewport(false);
     }
 
-    document.addEventListener('mousemove', requestAnimation);
-    document.addEventListener('mouseenter', () => setViewportStatus(true));
-    document.addEventListener('mouseleave', () => setViewportStatus(false));
+    function setInsideViewport() {
+      setIsInViewport(true);
+    }
 
-    return function cleanup() {
+    function addListeners() {
+      document.addEventListener('mousemove', requestAnimation);
+      document.addEventListener('mouseenter', setInsideViewport);
+      document.addEventListener('mouseleave', setOutsideViewport);
+    }
+
+    function cleanupListeners() {
       document.removeEventListener('mousemove', requestAnimation);
-      document.removeEventListener('mouseenter', setViewportStatus);
-      document.removeEventListener('mouseleave', setViewportStatus);
-    };
-  }, [isAnimationScheduled, numEventsFired, x, xDifference, xDirection, xPercentage, y, yDifference, yDirection, yPercentage]);
+      document.removeEventListener('mouseenter', setInsideViewport);
+      document.removeEventListener('mouseleave', setOutsideViewport);
+    }
+
+    if (!isTrackingDisabled) addListeners();
+    else cleanupListeners();
+
+    return () => cleanupListeners();
+  }, [isAnimationScheduled, isTrackingDisabled]);
 
   return (
     <MouseInfoContext.Provider value={{
       mouseInfo: {
-        x,
-        y,
-        xDifference,
-        yDifference,
-        xDirection,
-        yDirection,
-        xPercentage,
-        yPercentage,
-        totalPercentage,
+        ...mouseInformation,
         isInViewport,
         eventsFired: numEventsFired,
       },
+      disableTracking,
     }}
     >
       {children}

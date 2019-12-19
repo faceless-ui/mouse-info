@@ -17,49 +17,75 @@ const MouseInfoDemo = (props) => {
       isInViewport,
       eventsFired,
     },
+    disableTracking,
   } = props;
 
   return (
-    <code>
-      <pre>
-        {'scrollPos:{'}
-        <br />
+    <>
+      <code>
+        <pre>
+          {'scrollPos:{'}
+          <br />
         &emsp;
-        {`x: ${x},`}
-        <br />
+          {`x: ${x},`}
+          <br />
         &emsp;
-        {`y: ${y},`}
-        <br />
+          {`y: ${y},`}
+          <br />
         &emsp;
-        {`xDifference: ${xDifference},`}
-        <br />
+          {`xDifference: ${xDifference},`}
+          <br />
         &emsp;
-        {`yDifference: ${yDifference},`}
-        <br />
+          {`yDifference: ${yDifference},`}
+          <br />
         &emsp;
-        {`xDirection: ${xDirection},`}
-        <br />
+          {`xDirection: ${xDirection},`}
+          <br />
         &emsp;
-        {`yDirection: ${yDirection},`}
-        <br />
+          {`yDirection: ${yDirection},`}
+          <br />
         &emsp;
-        {`xPercentage: ${xPercentage},`}
-        <br />
+          {`xPercentage: ${xPercentage},`}
+          <br />
         &emsp;
-        {`yPercentage: ${yPercentage},`}
-        <br />
+          {`yPercentage: ${yPercentage},`}
+          <br />
         &emsp;
-        {`totalPercentage: ${totalPercentage},`}
-        <br />
+          {`totalPercentage: ${totalPercentage},`}
+          <br />
         &emsp;
-        {`isInViewport: ${isInViewport},`}
-        <br />
+          {`isInViewport: ${isInViewport},`}
+          <br />
         &emsp;
-        {`eventsFired: ${eventsFired}`}
+          {`eventsFired: ${eventsFired}`}
+          <br />
+          {'}'}
+        </pre>
         <br />
-        {'}'}
-      </pre>
-    </code>
+        <button
+          onClick={() => disableTracking(true)}
+          type="button"
+        >
+        stop
+        </button>
+        <button
+          onClick={() => disableTracking(false)}
+          type="button"
+        >
+        start
+        </button>
+      </code>
+      <div
+        onMouseEnter={() => disableTracking(false)}
+        onBlur={() => disableTracking(true)}
+        onMouseOut={() => disableTracking(true)}
+        style={{
+          background: 'grey',
+          height: '100px',
+          width: '100px',
+        }}
+      />
+    </>
   );
 };
 
@@ -87,6 +113,7 @@ MouseInfoDemo.propTypes = {
     isInViewport: PropTypes.bool,
     eventsFired: PropTypes.number,
   }).isRequired,
+  disableTracking: PropTypes.func.isRequired,
 };
 
 export default withMouseInfo(MouseInfoDemo);
