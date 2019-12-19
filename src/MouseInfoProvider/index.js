@@ -25,6 +25,7 @@ const MouseInfoProvider = (props) => {
     setDisabledTracking(trackingStatus);
   }
 
+
   useEffect(() => {
     function updateMouseInfo(e, timestamp) {
       setIsAnimationScheduled(false);
@@ -63,16 +64,16 @@ const MouseInfoProvider = (props) => {
       document.addEventListener('mouseleave', setOutsideViewport);
     }
 
-    function cleanupListeners() {
+    function removeListeners() {
       document.removeEventListener('mousemove', requestAnimation);
       document.removeEventListener('mouseenter', setInsideViewport);
       document.removeEventListener('mouseleave', setOutsideViewport);
     }
 
     if (!isTrackingDisabled) addListeners();
-    else cleanupListeners();
+    else removeListeners();
 
-    return () => cleanupListeners();
+    return () => removeListeners();
   }, [isAnimationScheduled, isTrackingDisabled]);
 
   return (
