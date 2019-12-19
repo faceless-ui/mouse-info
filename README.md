@@ -52,6 +52,10 @@ All available props can be found via the references below:
   - [MouseInfoProvider](/src/MouseInfoProvider/README.md)
   - [withMouseInfo](/src/withMouseInfo/README.md)
 
+## Contribution
+
+[Help us,](https://github.com/trouble/.github/blob/master/CONTRIBUTING.md) or let us [help you help us](https://github.com/trouble/.github/blob/master/SUPPORT.md).
+
 ## License
 
 [MIT](https://github.com/trouble/react-mouse-info/blob/master/LICENSE) Copyright (c) TRBL, LLC
