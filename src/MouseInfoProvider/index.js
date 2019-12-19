@@ -25,7 +25,6 @@ const MouseInfoProvider = (props) => {
     setDisabledTracking(trackingStatus);
   }
 
-
   useEffect(() => {
     function updateMouseInfo(e, timestamp) {
       setIsAnimationScheduled(false);
