@@ -67,9 +67,8 @@ class MouseInfoProvider extends Component {
     const yPercentage = (currentMouseY / window.innerHeight) * 100;
     const totalPercentage = (xPercentage + yPercentage) / 2;
 
-    /* eslint-disable no-nested-ternary */
-    const xDirection = xDifference > 0 ? 'right' : xDifference < 0 ? 'left' : prevXDirection;
-    const yDirection = yDifference > 0 ? 'down' : yDifference < 0 ? 'up' : prevYDirection;
+    const xDirection = xDifference > 0 ? 'right' : xDifference < 0 ? 'left' : prevXDirection; // eslint-disable-line no-nested-ternary
+    const yDirection = yDifference > 0 ? 'down' : yDifference < 0 ? 'up' : prevYDirection; // eslint-disable-line no-nested-ternary
 
     this.setState({
       x: currentMouseX,
@@ -93,16 +92,18 @@ class MouseInfoProvider extends Component {
 
     return (
       <MouseInfoContext.Provider value={{ mouseInfo }}>
-        {children}
+        {children && children}
       </MouseInfoContext.Provider>
     );
   }
 }
 
-MouseInfoProvider.defaultProps = {};
+MouseInfoProvider.defaultProps = {
+  children: undefined,
+};
 
 MouseInfoProvider.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 export default MouseInfoProvider;

@@ -20,7 +20,7 @@ $ yarn add @trbl/react-mouse-info
   import React from 'react';
   import { MouseInfoProvider, withMouseInfo } from '@trbl/react-mouse-info';
 
-  const MyComponent = withMouseInfo(() => return <div>My Component</div>);
+  const MyComponent = withMouseInfo(() => <div>My Component</div>);
 
   const App = () => {
     return (
@@ -49,8 +49,8 @@ $ open http://localhost:3000
 
 All available props can be found via the references below:
 
-  - [MouseInfoProvider](/src/MouseInfoProvider/README.md)
-  - [withMouseInfo](/src/withMouseInfo/README.md)
+  - [MouseInfoProvider](./src/MouseInfoProvider/README.md)
+  - [withMouseInfo](./src/withMouseInfo/README.md)
 
 ## Contribution
 
