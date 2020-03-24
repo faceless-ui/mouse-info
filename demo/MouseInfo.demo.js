@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withMouseInfo } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
+import {
+  // useMouseInfo,
+  withMouseInfo,
+} from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
 
 const MouseInfoDemo = (props) => {
   const {
@@ -17,7 +20,7 @@ const MouseInfoDemo = (props) => {
       isInViewport,
       eventsFired,
     },
-  } = props;
+  } = props; // to demo hook, change to `useMouseInfo()` and remove `withMouseInfo` HOC
 
   return (
     <code>
