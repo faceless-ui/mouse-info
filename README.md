@@ -20,18 +20,14 @@ $ yarn add @trbl/react-mouse-info
   import React from 'react';
   import { MouseInfoProvider, withMouseInfo, useMouseInfo } from '@trbl/react-mouse-info';
 
-  const MyComponent = withMouseInfo(() => <div>My Component</div>);
-  const MyOtherComponent = () => <div>{useMouseInfo()}</div>;
+  const WithMouseInfo = withMouseInfo(({ mouseInfo }) => <div>{mouseInfo}</div>);
+  const UseMouseInfo = () => <div>{useMouseInfo()}</div>;
 
   const App = () => {
     return (
       <MouseInfoProvider>
-        <MyComponent>
-          ...
-        </MyComponent>
-        <MyOtherComponent>
-          ...
-        </MyOtherComponent>
+        <WithMouseInfo />
+        <UseMouseInfo />
       </MouseInfoProvider>
     )
   }

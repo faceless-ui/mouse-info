@@ -21,9 +21,9 @@ describe('withMouseInfo', () => {
   );
 
   it('rendered with an initial mouseInfo prop of correct shape and value', () => {
-    const { value: { mouseInfo } } = wrapper.props();
+    const { value: hocProps } = wrapper.props();
 
-    expect(mouseInfo).toMatchObject({
+    expect(hocProps).toMatchObject({
       x: 0,
       y: 0,
       xDifference: 0,
@@ -42,9 +42,9 @@ describe('withMouseInfo', () => {
     window.document.mouseTo(982, 491);
     window.document.mouseEnter(); // Browsers will fire mouseenter on alongside initial mousemove
 
-    const { value: { mouseInfo } } = wrapper.props();
+    const { value: hocProps } = wrapper.props();
 
-    expect(mouseInfo).toMatchObject({
+    expect(hocProps).toMatchObject({
       x: 982,
       y: 491,
       xDifference: 982,
@@ -61,13 +61,13 @@ describe('withMouseInfo', () => {
 
   it('received an updated mouseInfo prop after a mouseleave event', () => {
     window.document.mouseLeave();
-    const { value: { mouseInfo } } = wrapper.props();
-    expect(mouseInfo).toHaveProperty('isInViewport', false);
+    const { value: hocProps } = wrapper.props();
+    expect(hocProps).toHaveProperty('isInViewport', false);
   });
 
   it('received an updated mouseInfo prop after a mouse event', () => {
     window.document.mouseEnter();
-    const { value: { mouseInfo } } = wrapper.props();
-    expect(mouseInfo).toHaveProperty('isInViewport', true);
+    const { value: hocProps } = wrapper.props();
+    expect(hocProps).toHaveProperty('isInViewport', true);
   });
 });

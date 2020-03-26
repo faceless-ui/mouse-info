@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  // useMouseInfo,
-  withMouseInfo,
-} from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
+import { withMouseInfo } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
 
-const MouseInfoDemo = (props) => {
+const WithMouseInfo = (props) => {
   const {
     mouseInfo: {
       x,
@@ -20,7 +17,7 @@ const MouseInfoDemo = (props) => {
       isInViewport,
       eventsFired,
     },
-  } = props; // to demo hook, change to `useMouseInfo()` and remove `withMouseInfo` HOC
+  } = props;
 
   return (
     <code>
@@ -66,9 +63,7 @@ const MouseInfoDemo = (props) => {
   );
 };
 
-MouseInfoDemo.defaultProps = {};
-
-MouseInfoDemo.propTypes = {
+WithMouseInfo.propTypes = {
   mouseInfo: PropTypes.shape({
     x: PropTypes.number,
     y: PropTypes.number,
@@ -92,4 +87,4 @@ MouseInfoDemo.propTypes = {
   }).isRequired,
 };
 
-export default withMouseInfo(MouseInfoDemo);
+export default withMouseInfo(WithMouseInfo);

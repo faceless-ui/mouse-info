@@ -8,7 +8,7 @@ const withMouseInfo = (PassedComponent) => {
         <PassedComponent
           {...{
             ...props,
-            ...context,
+            mouseInfo: context,
           }}
         />
       )}

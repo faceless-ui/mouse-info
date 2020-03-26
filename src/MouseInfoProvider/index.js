@@ -91,7 +91,7 @@ class MouseInfoProvider extends Component {
     delete mouseInfo.animationScheduled;
 
     return (
-      <MouseInfoContext.Provider value={{ mouseInfo }}>
+      <MouseInfoContext.Provider value={{ ...mouseInfo }}>
         {children && children}
       </MouseInfoContext.Provider>
     );
