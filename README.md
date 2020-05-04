@@ -4,13 +4,13 @@
 
 # React Mouse Info
 
-Grayish brown.
-
 ## Quick Start
 
 ### Installation
 
 ```bash
+$ npm i @trbl/react-mouse-info
+$ # or
 $ yarn add @trbl/react-mouse-info
 ```
 
@@ -35,20 +35,20 @@ $ yarn add @trbl/react-mouse-info
   export default App;
 ```
 
+For working examples, see the [demo app](./demo/App.demo.js).
+
 ## Demo
 
-To demo locally, clone the repo and
-
 ```bash
+$ git clone git@github.com:trouble/react-mouse-info.git
 $ yarn
 $ yarn dev
 $ open http://localhost:3000
 ```
 
-## Documentation
+## API
 
-All available props can be found via the references below:
-
+  - [MouseInfo](./src/MouseInfo/README.md)
   - [MouseInfoProvider](./src/MouseInfoProvider/README.md)
   - [useMouseInfo](./src/useMouseInfo/README.md)
   - [withMouseInfo](./src/withMouseInfo/README.md)
