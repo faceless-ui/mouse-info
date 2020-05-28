@@ -1,5 +1,5 @@
-[![NPM](https://img.shields.io/npm/v/@trbl/react-mouse-info)](https://www.npmjs.com/@trbl/react-mouse-info)
-![Bundle Size](https://img.shields.io/bundlephobia/minzip/@trbl/react-mouse-info?label=zipped)
+[![NPM](https://img.shields.io/npm/v/@faceless-ui/mouse-info)](https://www.npmjs.com/@faceless-ui/mouse-info)
+![Bundle Size](https://img.shields.io/bundlephobia/minzip/@faceless-ui/mouse-info?label=zipped)
 [![Supported by TRBL](https://img.shields.io/badge/supported_by-TRBL-black)](https://github.com/trouble)
 
 # React Mouse Info
@@ -9,16 +9,16 @@
 ### Installation
 
 ```bash
-$ npm i @trbl/react-mouse-info
+$ npm i @faceless-ui/mouse-info
 $ # or
-$ yarn add @trbl/react-mouse-info
+$ yarn add @faceless-ui/mouse-info
 ```
 
 ### Composition
 
 ```jsx
   import React from 'react';
-  import { MouseInfoProvider, withMouseInfo, useMouseInfo } from '@trbl/react-mouse-info';
+  import { MouseInfoProvider, withMouseInfo, useMouseInfo } from '@faceless-ui/mouse-info';
 
   const WithMouseInfo = withMouseInfo(({ mouseInfo }) => <div>{mouseInfo}</div>);
   const UseMouseInfo = () => <div>{useMouseInfo()}</div>;
@@ -40,7 +40,7 @@ For working examples, see the [demo app](./demo/App.demo.js).
 ## Demo
 
 ```bash
-$ git clone git@github.com:trouble/react-mouse-info.git
+$ git clone git@github.com:faceless-ui/mouse-info.git
 $ yarn
 $ yarn dev
 $ open http://localhost:3000
@@ -55,8 +55,8 @@ $ open http://localhost:3000
 
 ## Contribution
 
-[Help us,](https://github.com/trouble/.github/blob/master/CONTRIBUTING.md) or let us [help you help us](https://github.com/trouble/.github/blob/master/SUPPORT.md).
+[Help us,](https://github.com/faceless-ui/.github/blob/master/CONTRIBUTING.md) or let us [help you help us](https://github.com/faceless-ui/.github/blob/master/SUPPORT.md).
 
 ## License
 
-[MIT](https://github.com/trouble/react-mouse-info/blob/master/LICENSE) Copyright (c) TRBL, LLC
+[MIT](https://github.com/faceless-ui/mouse-info/blob/master/LICENSE) Copyright (c) TRBL, LLC
