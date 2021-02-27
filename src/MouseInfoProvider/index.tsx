@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import MouseInfoContext from './context';
+import MouseInfoContext from '../MouseInfoContext';
+import { IMouseInfoContext } from '../MouseInfoContext/types';
+import { Props } from './types';
 
-class MouseInfoProvider extends Component {
-  constructor(props) {
+class MouseInfoProvider extends Component<Props, IMouseInfoContext> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -11,8 +12,8 @@ class MouseInfoProvider extends Component {
       y: 0,
       xDifference: 0,
       yDifference: 0,
-      xDirection: '',
-      yDirection: '',
+      xDirection: undefined,
+      yDirection: undefined,
       xPercentage: 0,
       yPercentage: 0,
       totalPercentage: 0,
@@ -22,19 +23,19 @@ class MouseInfoProvider extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     document.addEventListener('mousemove', this.requestAnimation);
     document.addEventListener('mouseenter', () => this.setViewportStatus(true));
     document.addEventListener('mouseleave', () => this.setViewportStatus(false));
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     document.removeEventListener('mousemove', this.requestAnimation);
-    document.removeEventListener('mouseenter', this.setViewportStatus);
-    document.removeEventListener('mouseleave', this.setViewportStatus);
+    document.removeEventListener('mouseenter', () => this.setViewportStatus);
+    document.removeEventListener('mouseleave', () => this.setViewportStatus);
   }
 
-  requestAnimation = (e) => {
+  requestAnimation = (e: MouseEvent): void => {
     const { animationScheduled } = this.state;
 
     if (!animationScheduled) {
@@ -44,11 +45,11 @@ class MouseInfoProvider extends Component {
     }
   }
 
-  setViewportStatus = (status) => {
-    this.setState({ isInViewport: status });
+  setViewportStatus = (status: MouseEvent | boolean): void => {
+    this.setState({ isInViewport: Boolean(status) });
   }
 
-  updateMouseInfo = (e, timestamp) => {
+  updateMouseInfo = (e: MouseEvent, timestamp?: number): void => {
     const {
       x: prevMouseX,
       y: prevMouseY,
@@ -85,7 +86,7 @@ class MouseInfoProvider extends Component {
     });
   };
 
-  render() {
+  render(): JSX.Element {
     const { children } = this.props;
     const mouseInfo = { ...this.state };
     delete mouseInfo.animationScheduled;
@@ -97,13 +98,5 @@ class MouseInfoProvider extends Component {
     );
   }
 }
-
-MouseInfoProvider.defaultProps = {
-  children: undefined,
-};
-
-MouseInfoProvider.propTypes = {
-  children: PropTypes.node,
-};
 
 export default MouseInfoProvider;

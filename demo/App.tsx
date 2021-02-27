@@ -7,7 +7,7 @@ import {
 import UseMouseInfo from './UseMouseInfo.demo';
 // import LogProps from './LogProps';
 
-const AppDemo = () => (
+const AppDemo: React.FC = () => (
   <MouseInfoProvider>
     {/* <WithMouseInfo /> */}
     <UseMouseInfo />
