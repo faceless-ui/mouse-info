@@ -37,9 +37,8 @@ module.exports = [
     entry: './demo/index.tsx',
     output: {
       filename: 'demo.bundle.js',
-      path: path.resolve(__dirname, 'dist'),
+      path: path.resolve(__dirname, 'dist-demo'),
     },
-
     module: {
       rules: [
         {
