@@ -1,10 +1,10 @@
 {
   "name": "@faceless-ui/mouse-info",
   "version": "1.2.3",
-  "main": "dist/build.bundle.js",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "git@github.com:faceless-ui/mouse-info.git",
-  "description": "Grayish brown.",
+  "description": "Grayish brown",
   "author": "<dev@trbl.design>",
   "license": "MIT",
   "keywords": [
@@ -16,7 +16,8 @@
     "ux"
   ],
   "scripts": {
-    "build": "yarn lint && webpack --config webpack.production.config.js",
+    "build": "yarn lint && tsc",
+    "build-demo": "yarn lint && webpack --config webpack.demo.config.js",
     "dev": "webpack-dev-server --hot --inline --config webpack.development.config.js",
     "lint": "eslint .",
     "test": "jest"
