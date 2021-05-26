@@ -10,5 +10,4 @@ export interface IMouseInfoContext {
   totalPercentage: number,
   isInViewport: boolean,
   eventsFired: number,
-  animationScheduled: boolean,
 }
