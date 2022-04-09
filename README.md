@@ -4,7 +4,7 @@
 
 # React Mouse Info
 
-## Quick Start
+Read the full documentation [here](https://faceless-ui.com/docs/mouse-info).
 
 ### Installation
 
@@ -14,30 +14,9 @@ $ # or
 $ yarn add @faceless-ui/mouse-info
 ```
 
-### Composition
-
-```jsx
-  import React from 'react';
-  import { MouseInfoProvider, withMouseInfo, useMouseInfo } from '@faceless-ui/mouse-info';
-
-  const WithMouseInfo = withMouseInfo(({ mouseInfo }) => <div>{mouseInfo}</div>);
-  const UseMouseInfo = () => <div>{useMouseInfo()}</div>;
-
-  const App = () => {
-    return (
-      <MouseInfoProvider>
-        <WithMouseInfo />
-        <UseMouseInfo />
-      </MouseInfoProvider>
-    )
-  }
-
-  export default App;
-```
-
-For working examples, see the [demo app](./demo/App.demo.js).
-
 ## Demo
+
+For working examples, spin up the [demo app](./demo/App.demo.js):
 
 ```bash
 $ git clone git@github.com:faceless-ui/mouse-info.git
@@ -45,13 +24,6 @@ $ yarn
 $ yarn dev
 $ open http://localhost:3000
 ```
-
-## API
-
-  - [MouseInfo](./src/MouseInfo/README.md)
-  - [MouseInfoProvider](./src/MouseInfoProvider/README.md)
-  - [useMouseInfo](./src/useMouseInfo/README.md)
-  - [withMouseInfo](./src/withMouseInfo/README.md)
 
 ## Contribution
 

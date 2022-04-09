@@ -7,7 +7,6 @@ import React, {
 } from 'react';
 import MouseInfoContext from '../MouseInfoContext';
 import { IMouseInfoContext } from '../MouseInfoContext/types';
-import { Props } from './types';
 
 const reducer = (
   state: IMouseInfoContext,
@@ -59,7 +58,7 @@ const reducer = (
   };
 };
 
-const MouseInfoProvider: React.FC<Props> = (props) => {
+const MouseInfoProvider: React.FC = (props) => {
   const {
     children,
   } = props;
