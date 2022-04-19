@@ -4,7 +4,7 @@ import useMouseInfo from '../useMouseInfo';
 const withMouseInfo = <P extends Record<string, unknown>>(
   PassedComponent: React.ComponentType<P>,
 ): React.FC<P> => {
-  const MouseInfoWrap = (props) => {
+  const MouseInfoWrap: React.FC<P> = (props) => {
     const mouseInfoContext = useMouseInfo();
 
     return (

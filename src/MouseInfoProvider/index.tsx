@@ -6,23 +6,26 @@ import React, {
   useState,
 } from 'react';
 import MouseInfoContext from '../MouseInfoContext';
-import { IMouseInfoContext } from '../MouseInfoContext/types';
+import { IMouseInfoContext } from '../MouseInfoContext';
+
+type AnimationRef = React.MutableRefObject<number | null>;
 
 const reducer = (
   state: IMouseInfoContext,
   payload: {
-    e?: MouseEvent,
+    e?: MouseEvent, // NOTE: this is optional because we may fake a scroll event on initial render
     timestamp?: number,
-    animationRef: React.MutableRefObject<number>
+    animationRef: AnimationRef
   },
-) => {
+): IMouseInfoContext => {
   const {
     e,
     timestamp,
     animationRef,
   } = payload;
 
-  animationRef.current = undefined;
+  animationRef.current = null;
+
   const {
     x: prevMouseX,
     y: prevMouseY,
@@ -31,8 +34,8 @@ const reducer = (
     eventsFired,
   } = state;
 
-  const currentMouseX = e.clientX;
-  const currentMouseY = e.clientY;
+  const currentMouseX = e?.clientX || 0;
+  const currentMouseY = e?.clientY || 0;
 
   const xDifference = currentMouseX - prevMouseX;
   const yDifference = currentMouseY - prevMouseY;
@@ -58,12 +61,14 @@ const reducer = (
   };
 };
 
-const MouseInfoProvider: React.FC = (props) => {
+const MouseInfoProvider: React.FC<{
+  children: React.ReactNode,
+}> = (props) => {
   const {
     children,
   } = props;
 
-  const animationRef = useRef<number>(null);
+  const animationRef = useRef<number | null>(null);
 
   const [state, dispatch] = useReducer(reducer, {
     x: 0,
@@ -76,9 +81,9 @@ const MouseInfoProvider: React.FC = (props) => {
     yPercentage: 0,
     totalPercentage: 0,
     eventsFired: 0,
-  });
+  } as IMouseInfoContext);
 
-  const [isInViewport, setIsInViewport] = useState(undefined);
+  const [isInViewport, setIsInViewport] = useState<boolean | undefined>(undefined);
 
   const requestAnimation = useCallback((e?: MouseEvent): void => {
     if (animationRef.current) cancelAnimationFrame(animationRef.current);
