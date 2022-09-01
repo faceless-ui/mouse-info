@@ -3,7 +3,7 @@
 
 # React Mouse Info
 
-Read the full documentation [here](https://faceless-ui.com/docs/mouse-info).
+Read the full documentation [here](https://facelessui.com/docs/mouse-info).
 
 ### Installation
 
@@ -13,9 +13,9 @@ $ # or
 $ yarn add @faceless-ui/mouse-info
 ```
 
-## Demo
+## Development
 
-For working examples, spin up the [demo app](./demo/App.demo.js):
+To develop this module locally, spin up the [demo app](./demo/App.demo.js):
 
 ```bash
 $ git clone git@github.com:faceless-ui/mouse-info.git
@@ -24,10 +24,6 @@ $ yarn dev
 $ open http://localhost:3000
 ```
 
-## Contribution
-
-[Help us,](https://github.com/faceless-ui/.github/blob/master/CONTRIBUTING.md) or let us [help you help us](https://github.com/faceless-ui/.github/blob/master/SUPPORT.md).
-
 ## License
 
-[MIT](https://github.com/faceless-ui/mouse-info/blob/master/LICENSE) Copyright (c) TRBL, LLC
+[MIT](https://github.com/faceless-ui/mouse-info/blob/master/LICENSE) Copyright (c) Faceless UI
