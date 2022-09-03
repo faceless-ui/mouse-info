@@ -1,12 +1,14 @@
 import React, { Fragment } from 'react';
-import { IMouseInfoContext } from '../MouseInfoContext';
+import { IMouseInfoContext } from '../MouseInfoProvider/context';
 import useMouseInfo from '../useMouseInfo';
 
 export type ChildFunction = (context: IMouseInfoContext) => React.ReactNode; // eslint-disable-line no-unused-vars
 
-const MouseInfo: React.FC<{
+export type MouseInfoProps = {
   children?: React.ReactNode | ChildFunction
-}> = (props) => {
+}
+
+const MouseInfo: React.FC<MouseInfoProps> = (props) => {
   const { children } = props;
   const mouseInfo = useMouseInfo();
 
