@@ -5,8 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import MouseInfoContext from '../MouseInfoContext';
-import { IMouseInfoContext } from '../MouseInfoContext';
+import MouseInfoContext, { IMouseInfoContext } from '../MouseInfoProvider/context';
 
 type AnimationRef = React.MutableRefObject<number | null>;
 
@@ -61,9 +60,11 @@ const reducer = (
   };
 };
 
-const MouseInfoProvider: React.FC<{
+export type MouseInfoProviderProps = {
   children: React.ReactNode,
-}> = (props) => {
+}
+
+const MouseInfoProvider: React.FC<MouseInfoProviderProps> = (props) => {
   const {
     children,
   } = props;
