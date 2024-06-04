@@ -1,5 +1,5 @@
 import React from 'react';
-import useMouseInfo from '../useMouseInfo';
+import useMouseInfo from '../useMouseInfo/index.js';
 
 const withMouseInfo = <P extends Record<string, unknown>>(
   PassedComponent: React.ComponentType<P>,

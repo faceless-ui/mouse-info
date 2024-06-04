@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import MouseInfoContext, { IMouseInfoContext } from '../MouseInfoProvider/context';
+import MouseInfoContext, { IMouseInfoContext } from '../MouseInfoProvider/context.js';
 
 type AnimationRef = React.MutableRefObject<number | null>;
 

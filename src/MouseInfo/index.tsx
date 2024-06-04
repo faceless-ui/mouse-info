@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import { IMouseInfoContext } from '../MouseInfoProvider/context';
-import useMouseInfo from '../useMouseInfo';
+import { IMouseInfoContext } from '../MouseInfoProvider/context.js';
+import useMouseInfo from '../useMouseInfo/index.js';
 
 export type ChildFunction = (context: IMouseInfoContext) => React.ReactNode; // eslint-disable-line no-unused-vars
 
