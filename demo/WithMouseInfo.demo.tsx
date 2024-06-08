@@ -1,5 +1,5 @@
-import { withMouseInfo } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
-import { IMouseInfoContext } from '../src/MouseInfoProvider/context';
+import { withMouseInfo } from '@faceless-ui/mouse-info';
+import type { IMouseInfoContext } from '../src/types';
 import LogProps from './LogProps';
 
 const WithMouseInfo: React.FC<{
