@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  MouseInfoProvider,
-  // MouseInfo,
-} from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
+import { MouseInfoProvider } from '@faceless-ui/mouse-info';
 // import WithMouseInfo from './WithMouseInfo.demo';
 import UseMouseInfo from './UseMouseInfo.demo';
 // import LogProps from './LogProps';

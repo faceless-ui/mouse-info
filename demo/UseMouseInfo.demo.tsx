@@ -1,4 +1,4 @@
-import { useMouseInfo } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
+import { useMouseInfo } from '@faceless-ui/mouse-info';
 import LogProps from './LogProps';
 
 const UseMouseInfo: React.FC = () => {
