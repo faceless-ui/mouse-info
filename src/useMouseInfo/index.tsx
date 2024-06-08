@@ -1,6 +1,4 @@
 import { useContext } from 'react';
-import MouseInfoContext, { IMouseInfoContext } from '../MouseInfoProvider/context.js';
+import { MouseInfoContext, type IMouseInfoContext } from '../MouseInfoProvider/context.js';
 
-const useMouseInfo = (): IMouseInfoContext => useContext(MouseInfoContext);
-
-export default useMouseInfo;
+export const useMouseInfo = (): IMouseInfoContext => useContext(MouseInfoContext);
