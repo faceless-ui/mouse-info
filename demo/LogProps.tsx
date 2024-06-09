@@ -1,5 +1,5 @@
 import React from 'react';
-import type { IMouseInfoContext } from '../src/types';
+import type { IMouseInfoContext } from '../src/types.js';
 
 const filterObject = () => {
   const seen = new WeakSet();

@@ -14,6 +14,4 @@ export interface IMouseInfoContext {
   eventsFired: number,
 }
 
-const MouseInfoContext = createContext<IMouseInfoContext>({} as IMouseInfoContext);
-
-export default MouseInfoContext;
+export const MouseInfoContext = createContext<IMouseInfoContext>({} as IMouseInfoContext);

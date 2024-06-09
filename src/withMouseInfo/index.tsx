@@ -1,7 +1,7 @@
 import React from 'react';
-import useMouseInfo from '../useMouseInfo/index.js';
+import { useMouseInfo } from '../useMouseInfo/index.js';
 
-const withMouseInfo = <P extends Record<string, unknown>>(
+export const withMouseInfo = <P extends Record<string, unknown>>(
   PassedComponent: React.ComponentType<P>,
 ): React.FC<P> => {
   const MouseInfoWrap: React.FC<P> = (props) => {
@@ -18,5 +18,3 @@ const withMouseInfo = <P extends Record<string, unknown>>(
   };
   return MouseInfoWrap;
 };
-
-export default withMouseInfo;
